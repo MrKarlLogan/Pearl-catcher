@@ -20,6 +20,8 @@
   --main-pearl-color: Lavender;
   --accent-pearl-color: Plum;
   --additional-pearl-color: Thistle;
+  --box-size-main: 100px;
+  --box-size-adaptation: 75px;
 }
 
 @keyframes scale {
@@ -139,6 +141,7 @@ body {
 .main {
   inline-size: 100%;
   block-size: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
   padding: .7rem;
   background: linear-gradient(var(--main-color), var(--accent-color), var(--additional-color));
@@ -203,7 +206,7 @@ body {
 }
 
 .box {
-  inline-size: 100px;
+  inline-size: var(--box-size-main);
   aspect-ratio: 1;
   background: linear-gradient(45deg, var(--box-main-color), Thistle, var(--box-accent-color));
   box-shadow: 0 0 2px 2px var(--main-color);
@@ -221,7 +224,7 @@ body {
 .box::after {
   content: '';
   position: absolute;
-  inline-size: 75px;
+  inline-size: calc(var(--box-size-main) - 25px);
   aspect-ratio: 1;
   background: linear-gradient(130deg, Olive, LightSlateGray, DarkSeaGreen);
   box-shadow: inset 0 0 5px 1px var(--main-color);
@@ -392,6 +395,7 @@ body {
 }
 
 .hints {
+  inline-size: 90%;
   display: flex;
   justify-content: center;
   column-gap: 2rem;
@@ -430,6 +434,10 @@ body {
   box-shadow: inset 0 0 10px 2px LightCoral, inset 0 0 10px 2px Salmon;
   filter: brightness(.8);
   animation: pulseColorRed 2s ease-in-out infinite;
+}
+
+.footer__text {
+  inline-size: 70%;
 }
 
 .modal {
@@ -612,7 +620,7 @@ body {
 
 .patch-notes__box {
   inline-size: min(500px, 100%);
-  block-size: 700px;
+  block-size: min(700px, 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -661,56 +669,129 @@ body {
   border-radius: 10px;
 }
 
-@media (max-width: 900px) {
-  .main {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-
-  .header__title {
-    gap: .5rem;
+@media (max-width: 850px) {
+  .header__title-svg {
+    inline-size: 40px;
   }
 
   .statistics {
-    inline-size: 80%;
-    flex-direction: column;
-    gap: .2rem;
-    grid-column: 1;
-    grid-row: 1;
+    inline-size: 100%;
+    font-size: 1.05rem;
+    padding: 1rem;
   }
 
   .game-box {
-    inline-size: 100%;
-    grid-column: 2;
-    grid-row: 1 / 3;
-    flex-direction: row;
+    inline-size: 90%;
+    padding: 1rem;
+  }
+
+  .box {
+    inline-size: var(--box-size-adaptation);
+  }
+
+  .box::after {
+    inline-size: calc(var(--box-size-adaptation) - 20px);
+  }
+
+  .cover {
+    inline-size: 85%;
   }
 
   .hints {
-    inline-size: 80%;
-    flex-direction: column;
-    grid-gap: 1.5rem;
-    grid-column: 1;
-    grid-row: 2;
+    gap: 1.1rem;
+  }
+
+  .buttons {
+    padding: .5rem .7rem;
+  }
+
+  .timer__hint-info {
+    right: -60%;
+  }
+
+  .health-points__hint-info {
+    right: -40%;
+  }
+
+  :is(.newgame-button, .reduce, .god-mode, .cold-time, .current-version)::before {
+    font-size: .8rem;
+  }
+
+  :is(.check__count, .level__count, .timer__count, .health-points__count) {
+    font-size: 1.2rem;
   }
 
   :is(.check, .level, .timer, .health-points) {
     flex-direction: column;
-    gap: .3rem
-  }
-
-  :is(.check__count, .level__count, .timer__count, .health-points__count) {
-    font-size: 1rem;
-    color: DarkMagenta;
-  }
-
-  .info__box {
-    inline-size: 100%;
+    gap: .7rem;
   }
 
   :is(.reduce, .god-mode, .cold-time) {
-    flex-direction: column;
+    font-size: 1rem;
+    gap: .5rem
+  }
+
+  .footer__text {
+    inline-size: 50%;
+    font-size: 1.0rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .timer__hint-info {
+    top: 25px;
+    right: -30%;
+  }
+
+  .header {
+    padding: .8rem;
+  }
+
+  .header__title-svg {
+    inline-size: 30px;
+  }
+
+  .header__text {
+    font-size: 1.3rem;
+  }
+
+  .timer__hint-info {
+    right: -30%;
+  }
+
+  :is(.info__box, .patch-notes__box) {
+    padding: 1.5rem;
+  }
+
+  .health-points__hint-info {
+    top: 26px;
+    right: 0;
+  }
+
+  .hints {
+    inline-size: 100%;
+    gap: 1rem;
+  }
+
+  .hint-reduce__error::before {
+    font-size: 1rem;
+  }
+
+  :is(.reduce, .god-mode, .cold-time) {
+    inline-size: 120px;
+    aspect-ratio: 2;
+  }
+
+  :is(.reduce, .god-mode, .cold-time) p {
+    display: none;
+  }
+
+  .footer__text {
+    inline-size: 70%;
+    font-size: .8rem;
+  }
+
+  :is(.current-version, .newgame-button) {
+    font-size: 1rem;
   }
 }
